@@ -33,7 +33,12 @@ To connect the hardware:
 4. Configure the serial port:
    - Go to **Setup → Serial port**, select the `COM` port your TTL converter is connected to (check Windows Device Manager), and set **115200 baud**, **8 data bits**, **No parity**, **1 stop bit**.
    - Go to **Setup → Terminal** and make sure **Local echo** is unchecked.
+
+   <img width="534" height="633" alt="image" src="https://github.com/user-attachments/assets/27104904-313b-438c-9b14-e8de647bb1df" />
+
 5. Start typing! Tera Term sends the 8-bit UART data (ASCII characters) straight to the board, displaying the hex value on the 7-segment displays while the transmitter echoes the character back to the Tera Term window.
+
+<img width="651" height="423" alt="image" src="https://github.com/user-attachments/assets/c34d050c-742d-415d-89d9-64fa941d9c79" />
 
 ## Pin Planner Settings (Intel MAX 10)
 If you are setting this up in Quartus for the MAX 10 board, here is the exact pin planner configuration I used based on the DE-10 lite manual. Make sure the I/O standard for everything is set to **3.3-V LVTTL**.
@@ -61,3 +66,10 @@ I will leave the DE10 lite manual as a PDF file above.
 * `HEX1[4]`: `PIN_E16`
 * `HEX1[5]`: `PIN_D17`
 * `HEX1[6]`: `PIN_C17`
+
+<img width="3359" height="1731" alt="20261123_123654" src="https://github.com/user-attachments/assets/d7b11905-0cf4-4cf8-ab51-7bc146ccdd99" />
+
+
+
+
+
