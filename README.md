@@ -1,12 +1,13 @@
 # VHDL-UART-Receiver and Transmiter
 VHDL UART receiver and transmiter for the DE10-Lite (MAX 10) FPGA, decoding and displaying incoming PC serial data on 7-segment displays and echoing back to the PC.
 
-The main function of this project is to read the ASCII characters of each keyboard key you press and display them instantly on the 7-segment displays of the DE10-Lite board. 
+The main function of this project:
+Incoming ASCII characters typed on a PC are decoded, displayed in hexadecimal on the board's 7-segment displays (`HEX1`–`HEX0`), and simultaneously echoed back to the PC terminal.
 
 ## How it works:
-The whole thing is coded in VHDL using state machines for passing to different blocks. It contains 4 main VHDL files that have a hierarchical file structure:
+The whole thing is coded in VHDL using finite state machines (FSMs) clocked at **50 MHz**. It contains 4 main VHDL files that have a hierarchical file structure:
 
-UART_R_T.vhd : Top level code (uses the rest of the .vhd files as entities that get plugged into it)
+UART_R_T.vhd : Top level entity (uses the rest of the .vhd files as entities that get plugged into it)
 UART_R.vhd : UART 8 bit receiver code, based on state machines
 UART_T.vhd : UART 8 bit transmiter code, based on state machines
 HEX_TO_7SEG.vhd : HEX to seven segment code fr displaying data
@@ -25,11 +26,11 @@ https://www.amazon.es/XMSJSIY-controlador-convertidor-compatible-industriales/dp
 
 To connect the hardware:
 
-1. Maxe sure the TTL converter is on 3.3V
-1. Connect the **TX pin** from your converter to the **RX pin** on the board, and tie the grounds (GND) together.
+1. Maxe sure the TTL converter is on 3.3V.
+1. Connect the **TX pin** from your converter to the **RX pin** on the board, and tie the grounds (GND) together and leave VCC disconected on the TTL Converter.
 2. Open up or install **Tera Term** on your PC.
 3. Configure a serial port:
-   Setup -> Serial port -> Find the COM port your TTL converter is conected to (Device manager) -> specify baud rate (150000) and 8 bit
+   Setup -> Serial port -> Find the COM port your TTL converter is conected to (Device manager) -> specify baud rate (115200) and 8 data bits, No parity, 1 stop bit.
 5. Start typing! Tera Term acts as the terminal passing the 8-bit UART data (ASCII characters) straight to the board, you should also see how the transmiter echoes back the data to the terraterm window 
 
 ## Pin Planner Settings (Intel MAX 10)
@@ -37,11 +38,11 @@ If you are setting this up in Quartus for the MAX 10 board, here is the exact pi
 
 I will leave the DE10 lite manual as a PDF file above.
 
-* **Clock (`i_clk`)**: `PIN_P11`
-* **UART RX (`UART_RX_PIN`)**: `PIN_AB5`
-* **UART TX (`UART_RX_PIN`)**: `PIN_AB6`
+** i_clk:	PIN_P11	-> 50 MHz Onboard Clock (MAX10_CLK1_50)
+** UART_RX_PIN:	PIN_AB5	-> Arduino_IO0 (D0/RX) on the user manual PDF
+** UART_TX_PIN: PIN_AB6	-> Arduino_IO1 (D1/TX) on the user manual PDF
 
-**HEX0 Display (Right)**
+**HEX0 Display (Left)**
 * `HEX0[0]`: `PIN_C18`
 * `HEX0[1]`: `PIN_D18`
 * `HEX0[2]`: `PIN_E18`
@@ -50,7 +51,7 @@ I will leave the DE10 lite manual as a PDF file above.
 * `HEX0[5]`: `PIN_A18`
 * `HEX0[6]`: `PIN_B17`
 
-**HEX1 Display (Left)**
+**HEX1 Display (Right)**
 * `HEX1[0]`: `PIN_C14`
 * `HEX1[1]`: `PIN_E15`
 * `HEX1[2]`: `PIN_C15`
